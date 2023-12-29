@@ -1,12 +1,8 @@
 plugins {
     id("com.android.application")
-//    id("com.android.library")
-//    id("org.jetbrains.kotlin.android")
     kotlin("kapt")
     kotlin("android")
-//    id("kotlin-android-extensions")
     id("androidx.navigation.safeargs.kotlin")
-//    id("dagger.hilt.android.plugin")
 }
 
 android {
