@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">RecipeApp</string>
+    <string name="hello_blank_fragment">Hello blank </string>
+    <string name="recipes_fragment">Recipes</string>
+    <string name="favorite_fragment">Favorite</string>
+    <string name="jokes_fragment">Jokes</string>
 </resources>
