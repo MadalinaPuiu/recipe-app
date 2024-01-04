@@ -4,7 +4,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import coil.load
+import com.bumptech.glide.Glide
+import com.example.recipeapp.R
 
 class RecipeItemBindingAdapter {
     companion object {
@@ -29,10 +30,11 @@ class RecipeItemBindingAdapter {
 
         @BindingAdapter("loadImageFromUrl")
         @JvmStatic
-        fun loadImageFromUrl(view: ImageView, url: String){
-            view.load(url){
-                crossfade( 600)
-            }
+        fun loadImageFromUrl(view: ImageView, url: String) {
+            Glide.with(view.context)
+                .load(url)
+                .error(R.drawable.ic_cookie)
+                .into(view)
         }
     }
 }
