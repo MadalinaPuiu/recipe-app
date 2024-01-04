@@ -2,7 +2,7 @@ package com.example.recipeapp.util
 
 class Constants {
     companion object{
-        const val API_KEY = "your_key"
+        const val API_KEY = "c802465044bc4c0cad3d22bd87fe1f29"
         const val BASE_URL = "https://api.spoonacular.com"
         const val QUERY_NUMBER = "number"
         const val QUERY_API_KEY = "apiKey"

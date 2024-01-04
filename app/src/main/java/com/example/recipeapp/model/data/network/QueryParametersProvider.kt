@@ -13,8 +13,8 @@ class QueryParametersProvider {
         return hashMapOf(
             QUERY_NUMBER to "50",
             QUERY_API_KEY to API_KEY,
-            QUERY_TYPE to "snack",
-            QUERY_DIET to "vegan",
+            QUERY_TYPE to "main course",
+            QUERY_DIET to "gluten free",
             QUERY_RECIPE_INFORMATION to "true",
             QUERY_FILL_INGREDIENTS to "true",
         )

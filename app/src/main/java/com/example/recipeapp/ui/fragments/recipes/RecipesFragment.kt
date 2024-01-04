@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipesAdapter
@@ -41,6 +42,10 @@ class RecipesFragment : Fragment() {
         recyclerView = binding.recyclerView
         setupRecyclerView()
         fetchData()
+
+        binding.filterFloatingActionButton.setOnClickListener {
+            findNavController().navigate(R.id.action_recipesFragment_to_mealTypeBottomSheet)
+        }
         // Inflate the layout for this fragment
         return binding.root
     }
