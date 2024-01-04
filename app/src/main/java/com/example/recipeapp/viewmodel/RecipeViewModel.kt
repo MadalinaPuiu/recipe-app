@@ -5,13 +5,17 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.recipeapp.model.RecipeModel
 import com.example.recipeapp.model.data.NetworkResult
 import com.example.recipeapp.model.data.RecipeRepository
+import com.example.recipeapp.model.data.db.RecipesEntity
 import com.example.recipeapp.model.data.network.QueryParametersProvider
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import retrofit2.Response
 import javax.inject.Inject
@@ -23,18 +27,39 @@ class RecipeViewModel @Inject constructor(
     application: Application
 ) : AndroidViewModel(application) {
 
+    /** ROOM DATABASE **/
+    var readRecipes: LiveData<List<RecipesEntity>> = repository.localDS.readRecipes().asLiveData()
+
+    private fun insertRecipes(recipesEntity: RecipesEntity) =
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.localDS.insertRecipes(recipesEntity)
+        }
+
+    private fun offlineCacheRecipes(recipe: RecipeModel) {
+        val recipesEntity = RecipesEntity(recipe)
+        insertRecipes(recipesEntity)
+    }
+
+    /** RETROFIT **/
     var recipesResponse: MutableLiveData<NetworkResult<RecipeModel>> = MutableLiveData()
 
     fun getRecipes() = viewModelScope.launch {
-        getRecipeeSafeCall(queryParametersProvider.generateSearchQueryParams())
+        getRecipeSafeCall(queryParametersProvider.generateSearchQueryParams())
     }
 
-    private suspend fun getRecipeeSafeCall(queryParams: Map<String, String>) {
+    private suspend fun getRecipeSafeCall(queryParams: Map<String, String>) {
         recipesResponse.value = NetworkResult.Loading()
         if (hasInternetConnection()) {
             try {
-                val response = repository.remoteDataSource.getRecipes(queryParams)
+                val response = repository.remoteDS.getRecipes(queryParams)
                 recipesResponse.value = handleRecipesResponse(response)
+
+                recipesResponse.value?.let { networkResponse ->
+                    networkResponse.data?.let {
+                        offlineCacheRecipes(it)
+                    }
+                }
+
             } catch (e: Exception) {
                 recipesResponse.value = NetworkResult.Error("Recipes not found")
             }

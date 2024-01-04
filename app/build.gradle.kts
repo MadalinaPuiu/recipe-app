@@ -63,10 +63,11 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
     // Room components
-    implementation("androidx.room:room-runtime:2.2.5")
-    kapt("androidx.room:room-compiler:2.2.5")
-    implementation("androidx.room:room-ktx:2.2.5")
-    androidTestImplementation("androidx.room:room-testing:2.2.5")
+    implementation("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
+//    annotationProcessor("android.arch.persistence.room:compiler:1.0.0")
+    implementation("androidx.room:room-ktx:2.6.1")
+    androidTestImplementation("androidx.room:room-testing:2.6.1")
     // Data binding
 //    kapt("com.android.databinding:compiler:3.2.0-alpha10")
 //    kapt("androidx.databinding:databinding-common:4.0.2")
@@ -100,6 +101,8 @@ dependencies {
     implementation("com.todkars:shimmer-recyclerview:0.4.1")
     // Jsoup
     implementation("org.jsoup:jsoup:1.13.1")
+
+    implementation("com.github.bumptech.glide:glide:4.14.2")
 }
 
 kapt {
