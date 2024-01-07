@@ -50,10 +50,4 @@ object NetworkModule {
     fun provideApiService(retrofit: Retrofit): RecipesApi {
         return retrofit.create(RecipesApi::class.java)
     }
-
-    @Singleton
-    @Provides
-    fun provideQueryParametersProvider(): QueryParametersProvider {
-        return QueryParametersProvider()
-    }
 }
