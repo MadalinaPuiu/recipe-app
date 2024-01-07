@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.recipeapp.R
 import com.example.recipeapp.adapter.RecipesAdapter
@@ -24,6 +25,7 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class RecipesFragment : Fragment() {
 
+    private val args by navArgs<RecipesFragmentArgs>()
     private var _binding: FragmentRecipesBinding? = null
     private val binding get() = _binding!!
     private val recipeViewModel: RecipeViewModel by viewModels()
@@ -71,7 +73,7 @@ class RecipesFragment : Fragment() {
     private fun fetchData() {
         lifecycleScope.launch {
             recipeViewModel.readRecipes.observeOnce(viewLifecycleOwner) { database ->
-                if (database.isNotEmpty()) {
+                if (database.isNotEmpty() && !args.backFromFilters) {
                     Log.d("RecipesFragment", "Read data from db called")
                     adapter.setData(database[0].foodRecipe)
                     hideSimmerEffect()

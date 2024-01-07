@@ -40,11 +40,27 @@ class RecipeViewModel @Inject constructor(
         insertRecipes(recipesEntity)
     }
 
+    fun saveFilterOptions(
+        mealType: String,
+        mealTypeId: Int,
+        dietType: String,
+        dietTypeId: Int
+    ) {
+        viewModelScope.launch {
+            queryParametersProvider.saveFilterOptions(mealType, mealTypeId, dietType, dietTypeId)
+        }
+    }
+
+    val readFilterOptions = queryParametersProvider.readFilterOptions.asLiveData()
+
+
+
     /** RETROFIT **/
     var recipesResponse: MutableLiveData<NetworkResult<RecipeModel>> = MutableLiveData()
 
     fun getRecipes() = viewModelScope.launch {
-        getRecipeSafeCall(queryParametersProvider.generateSearchQueryParams())
+        val params = queryParametersProvider.generateSearchQueryParams(viewModelScope)
+        getRecipeSafeCall(params)
     }
 
     private suspend fun getRecipeSafeCall(queryParams: Map<String, String>) {

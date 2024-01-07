@@ -14,5 +14,15 @@ class Constants {
         //Room DB
         const val DATABASE_NAME = "recipes_database"
         const val DATABASE_TABLE = "recipes_table"
+
+        // Prefs
+        const val DEFAULT_MEAL_TYPE = "main course"
+        const val DEFAULT_DIET_TYPE = "gluten free"
+        const val DEFAULT_SEARCH_NUMBER = "50"
+        const val PREFERENCE_MEAL_TYPE = "mealType"
+        const val PREFERENCE_MEAL_TYPE_ID = "mealTypeId"
+        const val PREFERENCE_DIET_TYPE = "dietType"
+        const val PREFERENCE_DIET_TYPE_ID = "dietTypeId"
+        const val PREFERENCE_NAME = "recipes_preferences"
     }
 }

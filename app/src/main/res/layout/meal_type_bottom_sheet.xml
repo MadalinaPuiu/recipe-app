@@ -83,7 +83,6 @@
                 android:id="@+id/dietTypeChipGroup"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:checkedChip="@+id/vegan_chip"
                 app:selectionRequired="true"
                 app:singleLine="true"
                 app:singleSelection="true" />
